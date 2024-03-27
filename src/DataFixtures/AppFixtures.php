@@ -28,15 +28,22 @@ class AppFixtures extends Fixture
 	) {
 	}
 
+	/*********************************************************************/
+	//														LOADERS																 //
+	//	   Permettent d'envoyer les données sur la base de données       //
+	/*********************************************************************/
+
 	/**
 	 * Charge les données de base dans la base de données
 	 * @param ObjectManager $manager Gestionnaire d'entities pour l'opération de persistance
 	 */
 	public function load(ObjectManager $manager): void
 	{
-		//On utilise la fonction loadUsers en lui passant $manager en paramètre afin d'avoir accès aux fonction persist et flush
+		//On passe $manager en paramètre afin d'avoir accès aux fonctions persist et flush
 		$this->loadUsers($manager);
-		// $this->loadTags($manager);
+		$this->loadTags($manager);
+		$this->loadPosts($manager);
+		$this->loadComments($manager);
 	}
 
 	/**
@@ -158,8 +165,8 @@ class AppFixtures extends Fixture
 
 	/*********************************************************************/
 	//														GETTER																 //
+	//	        Permettent de définir les données des entités            //
 	/*********************************************************************/
-
 
 	/**
 	 * Permet de récupérer les données des utilisateurs
