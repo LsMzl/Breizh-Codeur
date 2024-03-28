@@ -1,3 +1,24 @@
-body {
-    background-color: skyblue;
+*{
+    margin: 0;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+    color: inherit;
+}
+.post_card{
+    background-color: rgb(239, 241, 241);
+    margin: 20px 0;
+}
+.post_card .card_title{
+    font-size: 22px;
+}
+
+.card_publication{
+    display: flex;
+    justify-content: start;
+    gap: 20px;
+    color: rgb(53, 53, 53);
+    font-size: 0.8rem;
+    margin-bottom: 6px;
 }

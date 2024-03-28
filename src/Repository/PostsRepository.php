@@ -34,5 +34,14 @@ class PostsRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    // public function find($id): array
+    // {
+    //     return $this->createQueryBuilder('p')
+    //         ->where('p.id = :id')
+    //         ->setParameter('id', $_GET["id"])
+    //         ->getQuery()
+    //         ->getResult($id);
+    // }
+
         
 }

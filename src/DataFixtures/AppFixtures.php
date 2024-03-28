@@ -29,8 +29,8 @@ class AppFixtures extends Fixture
 	}
 
 	/*********************************************************************/
-	//														LOADERS																 //
-	//	   Permettent d'envoyer les données sur la base de données       //
+	/*														LOADERS																 */
+	/*	   Permettent d'envoyer les données sur la base de données       */
 	/*********************************************************************/
 
 	/**
@@ -43,7 +43,7 @@ class AppFixtures extends Fixture
 		$this->loadUsers($manager);
 		$this->loadTags($manager);
 		$this->loadPosts($manager);
-		$this->loadComments($manager);
+		// $this->loadComments($manager);
 	}
 
 	/**
@@ -99,21 +99,21 @@ class AppFixtures extends Fixture
 	private function loadComments(ObjectManager $manager): void
 	{
 
-		foreach ($this->getCommentsDatas() as [$post, $content, $published_at, $author]) {
-			$comment = new Comments();
-			$comment->setPost($post)
-				->setContent($content)
-				->setPublishedAt($published_at)
-				->setAuthor($author);
+		// 	foreach ($this->getCommentsDatas() as [$post, $content, $published_at, $author]) {
+		// 		$comment = new Comments();
+		// 		$comment->setPost($post)
+		// 			->setContent($content)
+		// 			->setPublishedAt($published_at)
+		// 			->setAuthor($author);
 
-			// On stocke les données de $user
-			$manager->persist($comment);
+		// On stocke les données de $user
+		// 		$manager->persist($comment);
 
-			//Ajout d'une référence
-			// $this->addReference();
-		}
+		//Ajout d'une référence
+		// $this->addReference();
+		// 	}
 		// On envoie les données de $user sur la Bdd
-		$manager->flush();
+		// 	$manager->flush();
 	}
 
 	/**
@@ -164,8 +164,8 @@ class AppFixtures extends Fixture
 	}
 
 	/*********************************************************************/
-	//														GETTER																 //
-	//	        Permettent de définir les données des entités            //
+	/*														GETTER																 */
+	/*	        Permettent de définir les données des entités            */
 	/*********************************************************************/
 
 	/**
@@ -178,7 +178,7 @@ class AppFixtures extends Fixture
 			// $userData = [$fullName, $userName, $password, $email, $role]
 			['Jane Doe', 'jane_admin', 'kitten', 'jane_admin@symfony.com', ['ROLE_ADMIN']],
 			['Tom Doe', 'tom_admin', 'kitten', 'tom_admin@symfony.com', ['ROLE_ADMIN']],
-			['John Doe', 'john_admin', 'kitten', 'john_user@symfony.com', ['ROLE_USER']]
+			['John Doe', 'john_user', 'kitten', 'john_user@symfony.com', ['ROLE_USER']]
 		];
 	}
 
@@ -206,7 +206,7 @@ class AppFixtures extends Fixture
 				$this->slugger->slug($title)->lower(),				//1: Slug généré à partir du titre
 				$this->getRandomText(),												//2: Résumé aléatoire de la publication
 				$this->getPostContent(),											//3: Contenu aléatoire de la publication
-				(new \DateTime('now - ' . $i . 'days'))				//4: Date de publication calculée en fonction de l'index et de l'heure aléatoire
+				(new \DateTimeImmutable('now - ' . $i . 'days'))				//4: Date de publication calculée en fonction de l'index et de l'heure aléatoire
 					->setTime(
 						random_int(8, 17),
 						random_int(7, 49),

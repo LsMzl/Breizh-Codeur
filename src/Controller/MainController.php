@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\DataFixtures\AppFixtures;
 use App\Entity\Posts;
 use App\Entity\Users;
 use App\Repository\PostsRepository;
@@ -13,53 +14,32 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MainController extends AbstractController
 {
-	#[Route('/', name: 'index')]
-	/* EntityManagerInterface est un objet permettant de gérer les entités */
-	// public function index(EntityManagerInterface $em): Response
-	// {
 
-	// 	/* Création d'une variable $author contenant l'objet Users */
-	// 	$author = new Users();
-	// 	$author->setFullName("Louis Mazzella")
-	// 		->setEmail("aze@aze.fr")
-	// 		->setUsername("IronHat")
-	// 		->setPassword("motDePasse");
-
-	// 	$em->persist($author);
-
-	// 	/* Création d'une variable $post contenant l'objet Posts */
-	// 	$post = new Posts();
-	// 	$post->setTitle("Un titre")
-	// 		->setContent("Ceci est le contenu du post")
-	// 		->setSummary("Ceci est un résumé")
-	// 		->setPublishedAt(new \DateTimeImmutable())
-	// 		->setSlug("Un-titre")
-	// 		->setAuthor($author);
-
-	// 	/* persist permet de sauvegarder temporairement les données
-	//       flush permet d'envoyer dans la BdD les données persistées */
-	// 	$em->persist($post);
-
-	// 	$em->flush();
-
-	// 	return $this->render('main/index.html.twig', [
-	// 		'controller_name' => 'MainController',
-	// 	]);
-	// }
-
+	#[Route('/posts', name: 'allPosts')]
 	/* PostsRepository contient les méthodes permettant d'aller chercher les posts depuis la base de données */
-	/*public function index(PostsRepository $repository): Response
+	public function allPosts(PostsRepository $repository): Response
 	{
-		// Création de $posts permettant de récupérer tous les posts
 		$posts = $repository->findAll();
 
-		dd($posts);
-	}*/
+		return $this->render(
+			'main/posts.html.twig',
+			[
+				'posts' => $posts
+			]
+		);
+	}
 
-	/* PostsRepository contient les méthodes permettant d'aller chercher les posts depuis la base de données */
-	public function index(PostsRepository $repository): Response
+
+	#[Route('/post/id', name: 'postById')]
+	public function postById(PostsRepository $repository, int $id): Response
 	{
-		$posts = $repository->findByTitle("Un titre");
-		dd($posts);
+		$post = $repository->find($id);
+
+		return $this->render(
+			'main/post.html.twig',
+			[
+				'post' => $post
+			]
+		);
 	}
 }
