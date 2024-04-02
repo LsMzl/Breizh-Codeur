@@ -30,11 +30,12 @@ class MainController extends AbstractController
 	}
 
 
-	#[Route('/post/id', name: 'postById')]
-	public function postById(PostsRepository $repository, int $id): Response
+	#[Route('/post/{id}', name: 'show')]
+	/**
+	 * Permet d'afficher un post selon son id
+	 */
+	public function show(Posts $post): Response
 	{
-		$post = $repository->find($id);
-
 		return $this->render(
 			'main/post.html.twig',
 			[
@@ -42,4 +43,7 @@ class MainController extends AbstractController
 			]
 		);
 	}
+
+
+	
 }

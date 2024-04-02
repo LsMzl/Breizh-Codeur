@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block body %}
+
+    <div class="posts_container">
+
+        {% for post in posts %}          
+            <article class="post_card">       
+                {# Lien vers la page du post #}
+                <a href="{{path('show', {id: post.id})}}">
+                    <p class="card_title">{{post.title}}</p>
+                </a>
+                <div class="card_publication">
+                    <time>Publié le {{post.publishedAt|date("d.m.y")}} </time>      
+                    <p>Par {{post.author.fullname}}</p> 
+                </div>
+                <p class="card_summary">{{post.summary}}</p>
+                <p>{{post.title}}</p>
+            </article>     
+        {% endfor %}
+    </div>
+
+{% endblock %}
