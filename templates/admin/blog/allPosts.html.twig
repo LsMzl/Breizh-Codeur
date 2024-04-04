@@ -86,10 +86,7 @@
                                 <i class="bi bi-pencil-fill fs-6" aria-hidden="true"></i>
                                 Edit
                             </a>
-                            <a class="btn btn-sm btn-danger rounded" href="">
-                                <i class="bi bi-trash-fill fs-6" aria-hidden="true"></i>
-                                Delete
-                            </a>
+                            {{ include('admin/blog/_delete_form.html.twig', { post: post }, with_context = false) }}
                         </div>
                     </td>
                 </tr>

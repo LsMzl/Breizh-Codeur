@@ -9,16 +9,15 @@
 
   {{ form_start(form) }}
     {{ form_row(form.title) }}
-    {{ form_row(form.slug) }} 
     {{ form_row(form.summary) }}
     {{ form_row(form.content) }}
 
     <button type="submit" class="btn btn-success rounded">
-      <i class="bi bi-floppy" aria-hidden="true"></i>
+      <i class="bi bi-check2" aria-hidden="true"></i>
       Valider
     </button>
     <a href="{{ path('admin_blog_all_posts')}}" class="btn btn-info rounded">
-      <i class="bi bi-columns-reverse" aria-hidden="true"></i>
+      <i class="bi bi-columns" aria-hidden="true"></i>
       Tous les articles
     </a>
 

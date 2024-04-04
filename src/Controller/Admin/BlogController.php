@@ -4,13 +4,13 @@ namespace App\Controller\Admin;
 
 use App\Entity\Posts;
 use App\Form\PostType;
-use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\PostsRepository;
 use App\Repository\UsersRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 #[Route('/admin/blog', name: 'admin_blog_')]
 final class BlogController extends AbstractController
@@ -20,7 +20,8 @@ final class BlogController extends AbstractController
   #[Route('/posts', name: 'all_posts', methods: ['GET'])]
   public function allPosts(PostsRepository $repository): Response
   {
-    $posts = $repository->findAll();
+    // Récupération des posts par date de publication décroissante
+    $posts = $repository->findBy([], orderBy: ['published_at' => 'DESC']);
 
     return $this->render(
       'admin/blog/allPosts.html.twig',
@@ -36,6 +37,8 @@ final class BlogController extends AbstractController
   #[Route('/post/create', name: 'create_post', methods: ['GET', 'POST'])]
   public function createPost(Request $request, EntityManagerInterface $em, UsersRepository $repository): Response
   {
+
+    //DEFINITION D'UN UTILISATEUR PAR DEFAUT AVEC INJECTION DE DEPENDANCE
     $user = $repository->findOneBy(['username' => 'jane_admin']);
     // Instanciation de chaque nouveau post créé.
     $post = new Posts();
@@ -52,7 +55,7 @@ final class BlogController extends AbstractController
       $em->flush();
 
       // Redirection vers la page affichant tous les posts.
-      return $this->redirectToRoute('all_posts', status: Response::HTTP_SEE_OTHER);
+      return $this->redirectToRoute('admin_blog_all_posts', status: Response::HTTP_SEE_OTHER);
     }
     // Si la requête est incorrecte, redirection vers la page de formulaire de création de post.
     return $this->render(
@@ -113,6 +116,30 @@ final class BlogController extends AbstractController
       [
         'post' => $post
       ]
+    );
+  }
+
+  // Route vers la page affichant un post selon son id
+  // On précise le type de requête utilisée, ici ['POST]
+  #[Route('/post/{id}', name: 'delete_post', methods: ['DELETE'])]
+  public function deletePost(Posts $post, EntityManagerInterface $em, Request $request): Response
+  {
+    // Récupération du token csrf
+    /** @var string|null $rtoken */
+    $token = $request->getPayload()->get('token');
+
+    if($this->isCsrfTokenValid('delete', $token)) 
+    {
+      // Suppression du post
+      $em->remove($post);
+      // Mise à jour des données
+      $em->flush();
+    }
+
+    // Redirection
+    return $this->redirectToRoute(
+      'admin_blog_all_posts',
+      status: Response::HTTP_SEE_OTHER
     );
   }
 }
