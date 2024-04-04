@@ -3,23 +3,44 @@
 {% block title %}Posts{% endblock %}
 
 {% block body %}
+    <div>
+        <ul class="pagination pagination-sm">
+            <li class="page-item disabled">
+            <a class="page-link" href="#">&laquo;</a>
+            </li>
+            <li class="page-item active">
+            <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item">
+            <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+            <a class="page-link" href="#">3</a>
+            </li>
+            <li class="page-item">
+            <a class="page-link" href="#">4</a>
+            </li>
+            <li class="page-item">
+            <a class="page-link" href="#">5</a>
+            </li>
+            <li class="page-item">
+            <a class="page-link" href="#">&raquo;</a>
+            </li>
+        </ul>
+    </div>
 
-    <div class="posts_container">
-
-        {% for post in posts %}          
-            <article class="post_card">       
-                {# Lien vers la page du post #}
-                <a href="{{path('show', {id: post.id})}}">
-                    <p class="card_title">{{post.title}}</p>
-                </a>
-                <div class="card_publication">
-                    <time>Publié le {{post.publishedAt|date("d.m.y")}} </time>      
-                    <p>Par {{post.author.fullname}}</p> 
+    <div class="articles"> 
+        {% for post in posts %}    
+            <article class="card" style="width: 25rem;">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{post.title}}</h5>
+                    <p class="card-text">{{post.summary}}</p>
+                    <p class="card-text">Publié le {{post.publishedAt|date("d.m.y")}} </p>
+                    <a href="{{path('show', {id: post.id})}}" class="btn btn-primary">Lire</a>
                 </div>
-                <p class="card_summary">{{post.summary}}</p>
-                <p>{{post.title}}</p>
-            </article>     
-        {% endfor %}
+            </article>
+        {% endfor %}   
     </div>
 
 {% endblock %}

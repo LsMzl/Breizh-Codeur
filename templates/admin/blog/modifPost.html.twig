@@ -1,1 +1,36 @@
-<h1>Formulaire</h1>
+{% extends 'base.html.twig' %}
+
+{% block title %}Edition Post n° {{ post.id }}{% endblock %}
+
+{% block body %}
+
+  <h2 class="text-center mb-4">Administration</h2>
+  <h1 class="text-center">Edition post #{{ post.id }}</h1>
+
+  {% block sidebar %}
+    <div class="section actions mb-4">
+        <a class="btn btn-sm btn-success rounded" href="{{ path('admin_blog_post_by_id', { id: post.id })}}">
+          <i class="bi bi-eye-fill fs-5" aria-hidden="true"></i>
+          Voir
+        </a>
+        <a class="btn btn-sm btn-danger rounded" href="{{ path('admin_blog_edit_post', { id: post.id }) }}">
+            <i class="bi bi-pencil-fill fs-5" aria-hidden="true"></i>
+            Supprimer
+        </a>
+    </div>   
+
+    <div class="section">
+      {{ include('admin/blog/_delete_form.html.twig', { post: post }, with_context = false) }}
+    </div>
+
+    {{ parent() }}
+    
+  {% endblock %}
+
+  {{ include('admin/blog/_form.html.twig', { form: form }, with_context = false) }}
+
+  
+
+
+
+{% endblock %}

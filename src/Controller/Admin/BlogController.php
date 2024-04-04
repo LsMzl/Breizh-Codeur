@@ -6,6 +6,7 @@ use App\Entity\Posts;
 use App\Form\PostType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\PostsRepository;
+use App\Repository\UsersRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,10 +34,12 @@ final class BlogController extends AbstractController
   // Route vers la page contenant le formulaire de création de post
   // On précise le type de requête utilisée, ici ['GET','POST']
   #[Route('/post/create', name: 'create_post', methods: ['GET', 'POST'])]
-  public function createPost(Request $request, EntityManagerInterface $em): Response
+  public function createPost(Request $request, EntityManagerInterface $em, UsersRepository $repository): Response
   {
+    $user = $repository->findOneBy(['username' => 'jane_admin']);
     // Instanciation de chaque nouveau post créé.
     $post = new Posts();
+    $post->setAuthor($user);
 
     // Création du formulaire selon les champs précisé dans le fichier PostType.
     $form = $this->createForm(PostType::class, $post);

@@ -1,1 +1,26 @@
-<h1>Formulaire</h1>
+{% extends 'base.html.twig' %}
+
+{% block title %}Création de post{% endblock %}
+
+{% block body %}
+
+  <h2 class="text-center mb-4">Administration</h2>
+  <h1 class="text-center">Création de post</h1>
+
+  {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.slug) }} 
+    {{ form_row(form.summary) }}
+    {{ form_row(form.content) }}
+
+    <button type="submit" class="btn btn-success rounded">
+      <i class="bi bi-floppy" aria-hidden="true"></i>
+      Valider
+    </button>
+    <a href="{{ path('admin_blog_all_posts')}}" class="btn btn-info rounded">
+      <i class="bi bi-columns-reverse" aria-hidden="true"></i>
+      Tous les articles
+    </a>
+
+  {{ form_end(form) }}
+{% endblock %}

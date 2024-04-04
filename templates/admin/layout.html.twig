@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Posts{% endblock %}
+        {% block header %}
+            {% set _route = app.request.get('_route') %}           
+            {% block nav %}
+              {% block header_navigation_links %}
+        <li class="nav-item">
+          <a class="nav-link {{ _route ==['admin_index, admin_post_index'] ? 'active' : "" }}" 
+            href="{{path('admin_blog_all_posts')}}">
+            <i class="bi bi-list-columns fs-3" aria-hidden="true"></i>
+            Blog         
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link {{ _route =='allPosts' ? 'active' : "" }}" 
+            href="{{path('index')}}">
+            <i class="bi bi-book fs-3" aria-hidden="true"></i>
+            Admin
+          </a>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link {{ _route =='connexion' ? 'active' : "" }}" href="#">
+            <i class="bi bi-person fs-3"></i>
+            Compte
+          </a>
+        </li>
+      {% endblock %}
+            
+            
+            
+            {% endblock %}
+        {% endblock %}
+{% block body %}
+
+
+{% endblock %}

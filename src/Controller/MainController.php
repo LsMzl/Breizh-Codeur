@@ -15,6 +15,18 @@ use Symfony\Component\Routing\Attribute\Route;
 class MainController extends AbstractController
 {
 
+	#[Route('/', name: 'index')]
+	/* PostsRepository contient les méthodes permettant d'aller chercher les posts depuis la base de données */
+	public function index(): Response
+	{
+
+
+		return $this->render(
+			'main/index.html.twig',
+			[]
+		);
+	}
+
 	#[Route('/posts', name: 'allPosts')]
 	/* PostsRepository contient les méthodes permettant d'aller chercher les posts depuis la base de données */
 	public function allPosts(PostsRepository $repository): Response
@@ -43,7 +55,4 @@ class MainController extends AbstractController
 			]
 		);
 	}
-
-
-	
 }

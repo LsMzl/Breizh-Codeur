@@ -3,23 +3,108 @@
 {% block title %}Posts{% endblock %}
 
 {% block body %}
+<h1 class="text-center mb-4">Administration</h1>
+    {% block sidebar %}
+        <div class="section actions mb-4">
+            <a class="btn btn-sm btn-info rounded" href="{{ path('admin_blog_create_post')}}">
+                <i class="bi bi-pencil-fill fs-5" aria-hidden="true"></i>
+                Créer
+            </a>
+        </div>
 
-    <div class="posts_container">
+        {{ parent() }}
+    
+    {% endblock %}
 
-        {% for post in posts %}          
-            <article class="post_card">       
-                {# Lien vers la page du post #}
-                <a href="{{path('show', {id: post.id})}}">
-                    <p class="card_title">{{post.title}}</p>
-                </a>
-                <div class="card_publication">
-                    <time>Publié le {{post.publishedAt|date("d.m.y")}} </time>      
-                    <p>Par {{post.author.fullname}}</p> 
-                </div>
-                <p class="card_summary">{{post.summary}}</p>
-                <p>{{post.title}}</p>
-            </article>     
-        {% endfor %}
-    </div>
+<div class="d-flex justify-content-between align-content-center">
+        <div>
+            <ul class="pagination pagination-sm">
+                <li class="page-item disabled">
+                <a class="page-link" href="#">&laquo;</a>
+                </li>
+                <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                <a class="page-link" href="#">4</a>
+                </li>
+                <li class="page-item">
+                <a class="page-link" href="#">5</a>
+                </li>
+                <li class="page-item">
+                <a class="page-link" href="#">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+
+        <div>       
+            <span class="material-symbols-outlined fs-3 bg-warning p-2 rounded">format_list_bulleted</span>
+            <span class="material-symbols-outlined fs-3 bg-warning p-2 rounded">apps</span>
+        </div>
+    </div> 
+
+    {% block main %}
+
+    {# Affichage des articles #}
+    <table class="table table-striped table-middle-aligned table-borderless">
+        <thead>
+            <tr>
+                <th scope="col">Titre</th>
+                <th scope="col">
+                    <i class="bi bi-calendar-fill" aria-hidden="true"></i>
+                    Publié le
+                </th>
+                <th scope="col" class="text-center">
+                    <i class="bi bi-person-bounding-box" aria-hidden="true"></i>
+                    Auteur
+                </th>
+                <th scope="col" class="text-center">
+                    <i class="bi bi-gear-fill" aria-hidden="true"></i>
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.publishedAt|date('d.m.y H:i') }}</td>
+                    <td>{{ post.getAuthor.fullname}}</td>
+                    <td class="text-right">
+                        <div class="items-actions">
+                            <a class="btn btn-sm btn-success rounded" href="{{ path('admin_blog_post_by_id', { id: post.id })}}">
+                                <i class="bi bi-eye-fill fs-6" aria-hidden="true"></i>
+                                Show
+                            </a>
+                            <a class="btn btn-sm btn-info rounded" href="{{ path('admin_blog_edit_post', { id: post.id })}}">
+                                <i class="bi bi-pencil-fill fs-6" aria-hidden="true"></i>
+                                Edit
+                            </a>
+                            <a class="btn btn-sm btn-danger rounded" href="">
+                                <i class="bi bi-trash-fill fs-6" aria-hidden="true"></i>
+                                Delete
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+
+                {% else %}
+                    <tr>
+                        <td colspan="4" align="center">Vide</td>
+                    </tr>              
+            {% endfor %}       
+        </tbody>    
+    </table>
+    {% endblock %}
+
+
+    
+    
 
 {% endblock %}

@@ -3,10 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Posts;
-use App\Entity\Tags;
-use App\Entity\Users;
-use Doctrine\DBAL\Types\TextType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,15 +14,16 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextareaType::class,
+            ->add('title', TextType::class,
             [
                 'label'=>'Titre'
             ])
-            ->add('slug', TextareaType::class,
+            ->add('slug', TextType::class,
             [
-                'label'=>'Slug'
+                'label'=>'Slug',
+                'required'=> false
             ])
-            ->add('summary', TextareaType::class,
+            ->add('summary', TextType::class,
             [
                 'label'=>'Résumé'
             ])
