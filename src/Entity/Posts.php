@@ -7,8 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostsRepository::class)]
+// On défini le titre comme étant unique (Il ne peut pas y avoir 2 posts avec le même titre)
+#[UniqueEntity('title')]
 class Posts
 {
     #[ORM\Id]
@@ -17,15 +21,21 @@ class Posts
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    // Contrainte empéchant la valeur d'être vide
+    #[Assert\NotBlank]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    // Contrainte empéchant la valeur d'être vide
+    #[Assert\NotBlank]
     private ?string $summary = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    // Contrainte empéchant la valeur d'être vide
+    #[Assert\NotBlank]
     private ?string $content = null;
 
     #[ORM\Column]

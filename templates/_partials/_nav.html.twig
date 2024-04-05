@@ -22,14 +22,7 @@
             Articles 
           </a>
         </li>
-        
-        <li class="nav-item">
-          <a class="nav-link {{ _route =='connexion' ? 'active' : "" }}" href="#">
-            <i class="bi bi-person-fill fs-3"></i>
-            Compte
-          </a>
-        </li>
-   
+
       {% endblock %}
       <div class="mt-2">
           <form class="d-flex">
@@ -52,21 +45,45 @@
         </li> #}
 
       </ul>
+      
       <ul class="navbar-nav ml-auto">
+    
+        {# Si l'utilisateur n'est pas connecté #}
+        {% if app.user == false%}        
         <li class="nav-item">
-          <a class="nav-link {{ _route =='admin_blog_' ? 'active' : "" }}" href="{{path('admin_blog_all_posts')}}">
-            <i class="bi bi-lock fs-3"></i>
-            Admin         
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link {{ _route =='connexion' ? 'active' : "" }}" href="#">
+          <a class="nav-link {{ _route =='connexion' ? 'active' : "" }}" href="{{ path('login')}}">
             <i class="bi bi-person-fill fs-3"></i>
             Se connecter
           </a>
         </li>
-          
+        {% endif %}
+
+        {# Si l'utilisateur est connecté #}
+        {% if app.user %}
+          <li class="nav-item">
+            <a class="nav-link {{ _route =='connexion' ? 'active' : "" }}" href="#">
+              <i class="bi bi-person-fill fs-3"></i>
+              Compte
+            </a>
+          </li>
+            {# Si l'utilisateur est connecté et qu'il est admin#}
+              {% if is_granted("ROLE_ADMIN") %}
+                <li class="nav-item">
+                  <a class="nav-link {{ _route =='admin_blog_' ? 'active' : "" }}" href="{{path('admin_blog_index')}}">
+                    <i class="bi bi-lock fs-3"></i>
+                    Admin         
+                  </a>
+                </li>
+              {% endif %}
+            
+
+          <li class="nav-item">
+            <a class="nav-link {{ _route =='connexion' ? 'active' : "" }}" href="{{ path('login')}}">
+              <i class="bi bi-person fs-3"></i>
+              Se déconnecter
+            </a>
+          </li>
+        {% endif %} 
       </ul>
       
       <button 
@@ -84,10 +101,10 @@
 
       {# Switch theme #}
       <i class="material-symbols-outlined fs-3">light_mode</i>
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-        <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-      </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+          <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+        </div>
       <i class="material-symbols-outlined fs-3">dark_mode</i>
 
 

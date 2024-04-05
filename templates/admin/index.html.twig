@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block body %}
+<p>Bienvenue {{ app.user.fullName }}</p>
+<h1 class="text-center mb-4">Page Administrateur</h1>
+
+
+<div class="d-flex justify-content-between align-content-center">
+
+
+
+    </div> 
+
+    {% block main %}
+    <div class="mb-5">
+      <h3 class="border-bottom">Articles</h3>
+      <ul>
+        <li><a href="{{ path('admin_blog_all_posts')}}">Afficher les articles</a></li>
+        <li><a href="{{ path('admin_blog_create_post')}}">Créer un article</a></li>
+      </ul>
+    </div>
+
+
+    <div class="mb-5">
+      <h3 class="border-bottom">Utilisateurs</h3>
+      <ul>
+        <li><a href="{{ path('admin_blog_all_users')}}">Afficher les utilisateurs</a></li>
+      </ul>
+    </div>
+
+    <div class="mb-5">
+      <h3 class="border-bottom">Commentaires</h3>
+      <ul>
+        <li><a href="#">Voir les derniers commentaires</a></li>
+      </ul>
+    </div>
+
+    <div class="mb-5">
+      <h3 class="border-bottom">Tags</h3>
+      <ul>
+        <li><a href="#">Editer les tags</a></li>
+      </ul>
+    </div>
+    {% endblock %}
+
+{% endblock %}

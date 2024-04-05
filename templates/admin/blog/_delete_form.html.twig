@@ -16,16 +16,16 @@ L'attribut id="delete-form" est utilisé pour identifier ce formulaire dans le c
   <input type="hidden" name="_method" value="DELETE">
   <input type="hidden" name="token" value="{{ csrf_token('delete') }}">
 
-{# 
-Cet input de type "hidden" est utilisé pour envoyer la méthode HTTP DELETE au serveur. Dans Symfony, 
-la méthode DELETE n'est pas prise en charge par les formulaires HTML standard, 
-donc cette méthode est simulée en envoyant une requête POST avec cette valeur "_method" définie à "DELETE". 
-Cela permet d'indiquer au serveur que la demande est une suppression. #}
+  {# 
+  Cet input de type "hidden" est utilisé pour envoyer la méthode HTTP DELETE au serveur. Dans Symfony, 
+  la méthode DELETE n'est pas prise en charge par les formulaires HTML standard, 
+  donc cette méthode est simulée en envoyant une requête POST avec cette valeur "_method" définie à "DELETE". 
+  Cela permet d'indiquer au serveur que la demande est une suppression. #}
 
-{# 
-Cet input de type "hidden" contient un jeton CSRF (Cross-Site Request Forgery) généré par Symfony. 
-Il est utilisé pour prévenir les attaques CSRF en s'assurant que la requête provient bien du formulaire affiché 
-par l'application Symfony et non d'un site tiers malveillant. #}
+  {# 
+  Cet input de type "hidden" contient un jeton CSRF (Cross-Site Request Forgery) généré par Symfony. 
+  Il est utilisé pour prévenir les attaques CSRF en s'assurant que la requête provient bien du formulaire affiché 
+  par l'application Symfony et non d'un site tiers malveillant. #}
   <button 
     type="submit" 
     class="btn btn-sm btn-danger rounded" 

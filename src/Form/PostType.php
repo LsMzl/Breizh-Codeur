@@ -21,7 +21,8 @@ class PostType extends AbstractType
                 'title',
                 TextType::class,
                 [
-                    'label' => 'Titre'
+                    'label' => 'Titre',
+                    'required'=> false
                 ]
             )
             // ->add('slug', TextType::class,
@@ -33,14 +34,16 @@ class PostType extends AbstractType
                 'summary',
                 TextType::class,
                 [
-                    'label' => 'Résumé'
+                    'label' => 'Résumé',
+                    'required'=> false
                 ]
             )
             ->add(
                 'content',
                 TextareaType::class,
                 [
-                    'label' => 'Contenu'
+                    'label' => 'Contenu',
+                    'required'=> false
                 ]
             );
 

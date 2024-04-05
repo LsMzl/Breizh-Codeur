@@ -3,20 +3,8 @@
 {% block title %}Posts{% endblock %}
 
 {% block body %}
-<h1 class="text-center mb-4">Liste des articles</h1>
+<h1 class="text-center mb-4">Liste des utilisateurs</h1>
 
-    {# Barre de navigation #}
-    {% block sidebar %}
-        <div class="section actions mb-4 d-flex justify-content-center">
-            <a class="btn btn-sm btn-info rounded" href="{{ path('admin_blog_create_post')}}">
-                <i class="bi bi-pencil-fill fs-6" aria-hidden="true"></i>
-                Créer
-            </a>
-        </div>
-
-        {{ parent() }}
-    
-    {% endblock %}
 
 <div class="d-flex justify-content-between align-content-center">
         <div>
@@ -58,42 +46,35 @@
         <thead>
             <tr>
                 <th scope="col">
+                    <i class="bi bi-123"></i>
+                    ID
+                </th>
+                <th scope="col">
                     <i class="bi bi-chat-left-fill"></i>
-                    Titre
+                    Nom
                 </th>
                 <th scope="col">
                     <i class="bi bi-calendar-fill" aria-hidden="true"></i>
-                    Publié le
+                    Username
                 </th>
                 <th scope="col" class="text-center">
                     <i class="bi bi-person-bounding-box" aria-hidden="true"></i>
-                    Auteur
+                    Email
                 </th>
                 <th scope="col" class="text-center">
                     <i class="bi bi-gear-fill" aria-hidden="true"></i>
-                    Action
+                    Role
                 </th>
             </tr>
         </thead>
         <tbody>
-            {% for post in posts %}
+            {% for user in users %}
                 <tr>
-                    <td>{{ post.title }}</td>
-                    <td>{{ post.publishedAt|date('d.m.y H:i') }}</td>
-                    <td>{{ post.getAuthor.fullname}}</td>
-                    <td class="text-right">
-                        <div class="items-actions d-flex justify-content-between">
-                            <a class="btn btn-sm btn-success rounded" href="{{ path('admin_blog_post_by_id', { id: post.id })}}">
-                                <i class="bi bi-eye-fill fs-6" aria-hidden="true"></i>
-                                Lire
-                            </a>
-                            <a class="btn btn-sm btn-info rounded" href="{{ path('admin_blog_edit_post', { id: post.id })}}">
-                                <i class="bi bi-pencil-fill fs-6" aria-hidden="true"></i>
-                                Editer
-                            </a>
-                            {{ include('admin/blog/_delete_form.html.twig', { post: post }, with_context = false) }}
-                        </div>
-                    </td>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.fullname }}</td>
+                    <td>{{ user.username}}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles[0] }}</td>
                 </tr>
 
                 {% else %}
@@ -104,9 +85,5 @@
         </tbody>    
     </table>
     {% endblock %}
-
-
-    
-    
 
 {% endblock %}
