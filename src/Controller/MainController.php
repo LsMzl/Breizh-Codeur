@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\DataFixtures\AppFixtures;
+use App\Entity\Comments;
 use App\Entity\Posts;
 use App\Entity\Users;
 use App\Repository\PostsRepository;
@@ -46,13 +47,16 @@ class MainController extends AbstractController
 	/**
 	 * Permet d'afficher un post selon son id
 	 */
-	public function show(Posts $post): Response
+	public function show(Posts $post, Comments $comments): Response
 	{
+
 		return $this->render(
 			'main/post.html.twig',
 			[
-				'post' => $post
+				'post' => $post,
 			]
 		);
 	}
+
+
 }

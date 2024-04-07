@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Posts{% endblock %}
+{% block title %}Catégories{% endblock %}
 
 {% block body %}
+    <h1 class="text-center">Catégories</h1>
+
     <div>
         <ul class="pagination pagination-sm">
             <li class="page-item disabled">
@@ -29,19 +31,13 @@
         </ul>
     </div>
 
-    <div class="articles d-flex flex-wrap"> 
-        {% for post in posts %} 
-            <div class="">  
-                <div class="card m-2" style="width: 22rem; height: 350px">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{post.title}}</h5>
-                        <p class="card-text">{{post.summary}}</p>
-                        <p class="card-text">Publié le {{post.publishedAt|date("d.m.y")}} </p>
-                        <a href="{{path('show', {id: post.id})}}" class="btn btn-primary rounded">Lire</a>
-                    </div>
-                </div>
-            </div> 
+    <div> 
+        {% for tag in tags %}    
+            <div>
+                <img src="" alt="">
+                <h3>{{ tag.name }}</h3>
+                <a href="{{ path('tagById', { id: tag.id }) }}">Voir les articles</a>
+            </div>
         {% endfor %}   
     </div>
 

@@ -6,14 +6,73 @@
 
     <div class="posts_container">
 
-        <div class="post_card">
-            <h2 class="card_title">{{post.title}}</h2>
-            <div class="card_publication">
-                <p>Publié le {{post.publishedAt|date("d/m/Y")}}</p>    
-                <p>Par {{post.author.fullname}}</p> 
-            </div>
-            <p class="card_summary">{{post.content}}</p>
+        <h1 class="text-center">{{ post.title }}</h1>
+
+        {% for tags in post.getTags %}
+            <a href="{{ path('tagById', { id: tags.id }) }}" class="text-info">#{{tags.name}}</a>                  
+        {% endfor %}
+
+        <p class="post-metadata text-center mb-3">
+        <span class="metadata">
+            <i class="material-symbols-outlined">event</i>
+            {{ post.publishedAt | date('d.m.Y H:i') }}
+        </span>
+        <span class="metadata">
+            <i class="bi bi-person-circle"></i>
+            {{ post.author.fullname }}
+        </span>   
+        </p>
+
+        <div class="jumbotron rounded-3">
+            <p class="text-center">Résumé</p>
+            <p class="mb-0 border-top border-bottom p-3">
+                {{ post.summary }}
+            </p>      
         </div>
+        <p> 
+        {{ post.content | markdown_to_html }}
+        </p>
+
+        {# Section Commentaires #}
+        <section>
+            <div class="d-flex border-bottom">
+                <p>
+                    {{ random(50)}} 
+                    <i class="bi bi-chat-text"></i>
+                </p>
+                <p>
+                    {{ random(50)}} 
+                    <i class="bi bi-heart-fill text-danger"></i>
+                </p>
+            </div>
+            <div class="d-flex justify-content-between border-bottom px-5">
+                <p>
+                    <i class="bi bi-heart"></i>
+                    J'aime
+                </p>
+                <p>
+                    <i class="bi bi-chat"></i>
+                    Commenter               
+                </p>
+                <p>
+                    <i class="bi bi-share"></i>
+                    Partager               
+                </p>
+            
+            </div>
+
+
+
+
+
+            <div>
+                <h4>Commentaires</h4>
+            
+            </div>
+        
+
+        
+        </section>
 
     </div>
 
