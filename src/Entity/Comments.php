@@ -15,7 +15,7 @@ class Comments
     private ?int $id = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Posts $post = null;
 
     #[ORM\Column(type: Types::TEXT)]

@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block body %}
+<h1 class="text-center mb-4">Liste des commentaires</h1>
+
+
+<div class="d-flex justify-content-between align-content-center">
+        <div>
+            <ul class="pagination pagination-sm">
+                <li class="page-item disabled">
+                <a class="page-link" href="#">&laquo;</a>
+                </li>
+                <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+                </li>
+                <li class="page-item">
+                <a class="page-link" href="#">2</a>
+                </li>
+                <li class="page-item">
+                <a class="page-link" href="#">3</a>
+                </li>
+                <li class="page-item">
+                <a class="page-link" href="#">4</a>
+                </li>
+                <li class="page-item">
+                <a class="page-link" href="#">5</a>
+                </li>
+                <li class="page-item">
+                <a class="page-link" href="#">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+
+        <div>       
+            <span class="material-symbols-outlined fs-3 bg-warning p-2 rounded">format_list_bulleted</span>
+            <span class="material-symbols-outlined fs-3 bg-warning p-2 rounded">apps</span>
+        </div>
+    </div> 
+
+    {% block main %}
+
+    {# Affichage des commentaires #}
+    <table class="table table-striped table-middle-aligned table-borderless">
+        <thead>
+            <tr>
+                <th scope="col">
+                    <i class="bi bi-123"></i>
+                    ID
+                </th>
+                <th scope="col">
+                    <i class="bi bi-person-circle"></i>
+                    Auteur
+                </th>
+                <th scope="col">
+                    <i class="bi bi-calendar-fill" aria-hidden="true"></i>
+                    Date de publication
+                </th>
+                <th scope="col" class="text-center">
+                    <i class="bi bi-person-bounding-box" aria-hidden="true"></i>
+                    Contenu
+                </th>
+                <th scope="col" class="text-center">
+                    <i class="bi bi-card-text" aria-hidden="true"></i>
+                    Article
+                </th>
+                <th scope="col" class="text-center">
+                    <i class="bi bi-gear-fill" aria-hidden="true"></i>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in comments %}
+                <tr>
+                    <td>{{ comment.id }}</td>
+                    <td>{{ comment.getAuthor.username }}</td>
+                    <td>{{ comment.publishedAt | date('d.m.Y m:H')}}</td>
+                    <td>{{ comment.content }}</td>
+                    <td><a href="{{ path('admin_blog_post_by_id', { id: comment.getPost.id })}}">{{ comment.getPost.title }}</a></td> 
+                    <td class="text-right">
+                        <div class="items-actions d-flex justify-content-between">
+                            {{ include('admin/components/_form_delete_comment.html.twig', { comment: comment }, with_context = false) }} 
+                        </div>
+                    </td>
+                </tr>
+
+                {% else %}
+                    <tr>
+                        <td colspan="4" align="center">Vide</td>
+                    </tr>              
+            {% endfor %}       
+        </tbody>    
+    </table>
+    {% endblock %}
+
+{% endblock %}

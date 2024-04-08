@@ -47,7 +47,7 @@ class MainController extends AbstractController
 	/**
 	 * Permet d'afficher un post selon son id
 	 */
-	public function show(Posts $post, Comments $comments): Response
+	public function show(Posts $post): Response
 	{
 
 		return $this->render(

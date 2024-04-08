@@ -26,21 +26,23 @@
     <div class="mb-5">
       <h3 class="border-bottom">Utilisateurs</h3>
       <ul>
-        <li><a href="{{ path('admin_blog_all_users')}}">Afficher les utilisateurs</a></li>
+        <li><a href="{{ path('admin_blog_all_users') }}">Afficher les utilisateurs</a></li>
       </ul>
     </div>
 
     <div class="mb-5">
       <h3 class="border-bottom">Commentaires</h3>
       <ul>
+      <li><a href="{{ path('admin_blog_all_comments') }}">Voir tous les commentaires</a></li>
         <li><a href="#">Voir les derniers commentaires</a></li>
       </ul>
     </div>
 
     <div class="mb-5">
-      <h3 class="border-bottom">Tags</h3>
+      <h3 class="border-bottom">Catégories</h3>
       <ul>
-        <li><a href="#">Editer les tags</a></li>
+        <li><a href="{{ path('admin_blog_all_tags') }}">Voir toutes les catégories</a></li>
+        <li><a href="{{ path('admin_blog_create_tag') }}">Créer une catégorie</a></li>
       </ul>
     </div>
     {% endblock %}

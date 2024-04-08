@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edition utilisateur n° {{ user.id }}{% endblock %}
+
+{% block body %}
+
+  <h2 class="text-center mb-4">Administration</h2>
+  <h1 class="text-center">Edition utilisateur #{{ user.id }}</h1>
+
+  {% block sidebar %}
+    <div class="section actions mb-4 d-flex justify-content-center">
+        {{ include('admin/components/_form_delete_user.html.twig', { user: user }, with_context = false) }}
+    </div>   
+
+    <div class="section">
+      
+    </div>
+
+    {{ parent() }}
+    
+  {% endblock %}
+
+  {{ include('admin/components/_form_modif_user.html.twig', { form: form }, with_context = false) }}
+
+  
+
+
+
+{% endblock %}

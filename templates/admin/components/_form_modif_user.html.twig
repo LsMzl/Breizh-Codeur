@@ -1,0 +1,14 @@
+{{ form_start(form, { attr: attr | default({}) }) }}
+
+  {{ form_widget(form) }}
+
+  <button type="submit" class="{{ button_css | default('btn btn-success rounded') }}">
+    <i class="bi bi-floppy" aria-hidden="true"></i>
+    Valider
+  </button>
+  <a href="{{ path('admin_blog_all_users')}}" class="btn btn-info rounded">
+    <i class="bi bi-columns-reverse" aria-hidden="true"></i>
+    Tous les utilisateurs
+  </a>
+
+{{ form_end(form) }}

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création de catégorie{% endblock %}
+
+{% block body %}
+
+  <h2 class="text-center mb-4">Administration</h2>
+  <h1 class="text-center">Création de catégorie</h1>
+
+  {{ form_start(form) }}
+    {{ form_row(form.name) }}
+
+    <button type="submit" class="btn btn-success rounded">
+      <i class="bi bi-check2" aria-hidden="true"></i>
+      Valider
+    </button>
+    <a href="{{ path('admin_blog_all_tags')}}" class="btn btn-info rounded">
+      <i class="bi bi-columns" aria-hidden="true"></i>
+      Tous les tags
+    </a>
+
+  {{ form_end(form) }}
+{% endblock %}

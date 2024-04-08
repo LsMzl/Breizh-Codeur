@@ -26,10 +26,10 @@ class Tags
      * Permet de créer une instance de Tags avec un nom spécifié lors de l'intanciation
      * @param string $name Nom du tag
      */
-    public function __construct(string $name)
+    public function __construct()
     {
-        // Initialise le nom du tag avec la valeur passée en paramètre
-        $this->name = $name;
+        // // Initialise le nom du tag avec la valeur passée en paramètre
+        // $this->name = $name;
         $this->posts = new ArrayCollection();
     }
 

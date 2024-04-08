@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edition Tag n° {{ tag.id }}{% endblock %}
+
+{% block body %}
+
+
+  <h1 class="text-center">Edition catégorie #{{ tag.name }}</h1>
+
+  {% block sidebar %}
+
+    <div class="section actions mb-4 d-flex justify-content-center">
+        <a class="btn btn-sm btn-success rounded" href="{{ path('admin_blog_tag_by_id', { id: tag.id })}}">
+          <i class="bi bi-eye-fill fs-6" aria-hidden="true"></i>
+          Voir
+        </a>
+        {# {{ include('admin/blog/_delete_form.html.twig', { tag: tag }, with_context = false) }} #}
+    </div>   
+
+    <div class="section">
+      
+    </div>
+
+    {{ parent() }}
+    
+  {% endblock %}
+
+  {# Importation du formulaire de modification de catégorie #}
+  {{ include('admin/components/_form_modif_tag.html.twig', { form: form }, with_context = false) }} 
+
+  
+
+
+
+{% endblock %}
