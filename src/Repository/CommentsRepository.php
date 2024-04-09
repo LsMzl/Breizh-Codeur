@@ -24,7 +24,7 @@ class CommentsRepository extends ServiceEntityRepository
     //    /**
     //     * @return Comments[] Returns an array of Comments objects
     //     */
-    //    public function findByExampleField($value): array
+    //    public function findCommentByAuthorId($value): array
     //    {
     //        return $this->createQueryBuilder('c')
     //            ->andWhere('c.exampleField = :val')

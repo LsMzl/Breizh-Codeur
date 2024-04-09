@@ -2,25 +2,43 @@
 
 {% block title %}Breizh Codeur - Accueil{% endblock %}
 
+{% block home %}
+
+    <div class="home_bg">
+        <p>Breizh Codeur</p>
+    </div>
+
+{% endblock %}
+
 {% block body %}
-<style>
-    .home_bg img{
-        position: relative;
-    } 
-    .home_bg p{
-        position: absolute;
-        color: white;
-        font-weight: 600;
-        z-index: 10;
-        font-size: 150px;
-        top: 20%;
-        left: 22%;
-        width: 200px;
-        line-height: 150px;
-    }
-</style>
-<div class="home_bg">
-    <img src="{{ asset('banner.jpg')}}" alt="" width="100%">
-    <p>Breizh Codeur</p>
-</div>
+    <h1 class="text-center mb-5 display-6">Bienvenue sur le site du Breizh Codeur !</h1>
+
+    <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut accusamus laboriosam dolorem eius, mollitia libero vero quis iure. 
+        Minima aliquid quaerat repudiandae natus ab alias consequatur voluptate unde nobis vitae. Perspiciatis consectetur eum aliquid hic, 
+        incidunt accusantium illum. Deleniti culpa doloremque recusandae odit fugiat atque magnam, autem soluta voluptatibus porro eveniet harum animi
+         id minima tempore aspernatur unde. Sit in rem porro corrupti suscipit, nostrum soluta hic quos quidem facere sapiente eaque dicta voluptate 
+         nesciunt tenetur natus, pariatur at omnis accusamus quaerat magnam, obcaecati iusto. Voluptatem quisquam architecto dolor, autem id itaque 
+         minus totam distinctio porro, suscipit optio at asperiores perspiciatis natus rem molestias animi incidunt impedit. Quaerat eveniet itaque 
+         nobis illum, similique sequi autem consequuntur minus aliquid non ab enim rerum error dignissimos nihil tenetur dolorem ipsam earum ullam
+          natus cupiditate doloribus fuga fugiat laborum. Nulla, quisquam, consequuntur, nam harum fuga repellendus doloremque minima aspernatur 
+          facilis maiores eum hic?
+    </p>
+    <hr>
+
+    <h4>Rencontrez nos derniers membres</h4>
+    <ul>
+        {% for user in users %}
+            <li>{{ user.username }}</li>
+        {% endfor %}
+    </ul>
+
+    <h4>Derniers articles en ligne</h4>
+    <ul>
+        {% for post in posts %}
+            <a href="{{path('show', {id: post.id})}}"><li>{{ post.title }}</li></a>
+            <cite>Par {{ post.author.username}}</cite>
+        {% endfor %}
+    </ul>
+
 {% endblock %}

@@ -2,35 +2,35 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Tags;
 use App\Entity\Posts;
 use App\Entity\Users;
-use App\Entity\Tags;
-use App\Entity\Comments;
-use App\Form\PostType;
 use App\Form\TagType;
+use App\Form\PostType;
 use App\Form\UserType;
+use App\Entity\Comments;
+use App\Repository\TagsRepository;
 use App\Repository\PostsRepository;
 use App\Repository\UsersRepository;
 use App\Repository\CommentsRepository;
-use App\Repository\TagsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/blog', name: 'admin_blog_')]
 final class BlogController extends AbstractController
 {
-  // Route vers la page affichant l'ensemble des posts
+  // Route vers la page affichant la page d'index de la partie administration
   // On précise le type de requête utilisée, ici ['GET']
   #[Route('/index', name: 'index', methods: ['GET'])]
   public function index(): Response
   {
     return $this->render(
       'admin/index.html.twig',
-      [
-      ]
     );
   }
 
@@ -48,27 +48,22 @@ final class BlogController extends AbstractController
     $posts = $repository->findBy([], orderBy: ['published_at' => 'DESC']);
 
     return $this->render(
-      'admin/posts/allPosts.html.twig',
-      [
-        'posts' => $posts
-      ]
+      'admin/posts/allPosts.html.twig', compact('posts')
+
     );
   }
 
 
   // Route vers la page affichant un post selon son id
   // On précise le type de requête utilisée, ici ['GET']
-  #[Route('/post/{id}', name: 'post_by_id', methods: ['GET'])]
+  #[Route('/post/{id}', name: 'post_by_id', methods: ['GET'], requirements:['id' => Requirement::DIGITS])]
   /**
    * Permet d'afficher un post selon son id
    */
-  public function postById(Posts $post): Response
+  public function postById(Posts $posts): Response
   {
     return $this->render(
-      'admin/posts/post.html.twig',
-      [
-        'post' => $post
-      ]
+      'admin/posts/post.html.twig', compact('posts')
     );
   }
 
@@ -76,11 +71,8 @@ final class BlogController extends AbstractController
   // Route vers la page contenant le formulaire de création de post
   // On précise le type de requête utilisée, ici ['GET','POST']
   #[Route('/post/create', name: 'create_post', methods: ['GET', 'POST'])]
-  public function createPost(Request $request, EntityManagerInterface $em, UsersRepository $repository): Response
+  public function createPost(#[CurrentUser] Users $user, Request $request, EntityManagerInterface $em): Response
   {
-
-    //DEFINITION D'UN UTILISATEUR PAR DEFAUT AVEC INJECTION DE DEPENDANCE
-    $user = $repository->findOneBy(['username' => 'jane_admin']);
     // Instanciation de chaque nouveau post créé.
     $post = new Posts();
     $post->setAuthor($user);
@@ -144,7 +136,7 @@ final class BlogController extends AbstractController
   }
 
 
-  // Route vers la page affichant un post selon son id
+  // Route vers la page de suppression de post
   // On précise le type de requête utilisée, ici ['POST]
   #[Route('/post/{id}', name: 'delete_post', methods: ['DELETE'])]
   public function deletePost(Posts $post, EntityManagerInterface $em, Request $request): Response
@@ -181,15 +173,12 @@ final class BlogController extends AbstractController
     $users = $repository->findBy([], orderBy: ['full_name' => 'ASC']);
 
     return $this->render(
-      'admin/users/allUsers.html.twig',
-      [
-        'users' => $users
-      ]
+      'admin/users/allUsers.html.twig', compact('users')
     );
   }
 
 
-    // Route vers la page contenant le formulaire de modification de tag
+    // Route vers la page contenant le formulaire de modification d'utilisateur
   // On précise le type de requête utilisée, ici ['GET','POST']
   #[Route('/users/edit/{id}', name: 'edit_user', methods: ['GET', 'POST'])]
   public function editUser(Users $user, Request $request, EntityManagerInterface $em): Response
@@ -223,7 +212,7 @@ final class BlogController extends AbstractController
     );
   }
 
-  // Route vers la page affichant un post selon son id
+  // Route vers la page de suppression d'utilisateur
   // On précise le type de requête utilisée, ici ['POST]
   #[Route('/users/{id}', name: 'delete_user', methods: ['DELETE'])]
   public function deleteUser(Users $user, EntityManagerInterface $em, Request $request): Response
@@ -260,15 +249,12 @@ final class BlogController extends AbstractController
     $comments = $repository->findBy([], orderBy: ['published_at' => 'ASC']);
 
     return $this->render(
-      'admin/comments/allComments.html.twig',
-      [
-        'comments' => $comments
-      ]
+      'admin/comments/allComments.html.twig', compact('comments')
     );
   }
 
 
-  // Route vers la page affichant un post selon son id
+  // Route vers la page de suppression de commentaire
   // On précise le type de requête utilisée, ici ['POST]
   #[Route('/comment/{id}', name: 'delete_comment', methods: ['DELETE'])]
   public function deleteComment(Comments $comment, EntityManagerInterface $em, Request $request): Response
@@ -297,7 +283,7 @@ final class BlogController extends AbstractController
                                                         //        TAGS        //
                                                         /**********************/
 
-  // Route vers la page affichant l'ensemble des commentaires
+  // Route vers la page affichant l'ensemble des catégories
   // On précise le type de requête utilisée, ici ['GET']
   #[Route('/tags', name: 'all_tags', methods: ['GET'])]
   public function allTags(TagsRepository $repository): Response
@@ -306,26 +292,20 @@ final class BlogController extends AbstractController
     $tags = $repository->findAll();
 
     return $this->render(
-      'admin/tags/allTags.html.twig',
-      [
-        'tags' => $tags
-      ]
+      'admin/tags/allTags.html.twig', compact('tags')
     );
   }
 
-  // Route vers la page affichant la page d'un tag selon son id.
+  // Route vers la page affichant la page d'une catégorie selon son id.
   #[Route('/tags/{id}', name: 'tag_by_id')]
   public function tagById(Tags $tag): Response
   {
       return $this->render(
-          'admin/tags/tag.html.twig',
-          [
-              'tag' => $tag
-          ]
+          'admin/tags/tag.html.twig', compact('tag')
       );
   }
 
-    // Route vers la page contenant le formulaire de création de post
+    // Route vers la page contenant le formulaire de création de catégorie
   // On précise le type de requête utilisée, ici ['GET','POST']
   #[Route('/tag/create', name: 'create_tag', methods: ['GET', 'POST'])]
   public function createTag(Request $request, EntityManagerInterface $em): Response
@@ -357,7 +337,7 @@ final class BlogController extends AbstractController
   }
 
 
-  // Route vers la page contenant le formulaire de modification de tag
+  // Route vers la page contenant le formulaire de modification de catégorie
   // On précise le type de requête utilisée, ici ['GET','POST']
   #[Route('/tags/edit/{id}', name: 'edit_tag', methods: ['GET', 'POST'])]
   public function editTag(Tags $tag, Request $request, EntityManagerInterface $em): Response
@@ -392,7 +372,7 @@ final class BlogController extends AbstractController
   }
 
 
-  // Route vers la page affichant un post selon son id
+  // Route vers la page de suppression de catégorie
   // On précise le type de requête utilisée, ici ['POST]
   #[Route('/tag/{id}', name: 'delete_tag', methods: ['DELETE'])]
   public function deleteTag(Tags $tag, EntityManagerInterface $em, Request $request): Response
