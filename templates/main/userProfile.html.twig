@@ -4,31 +4,21 @@
 
 {% block body %} 
     <h1 class="text-center">Votre profil</h1>  
+    <img 
+        class="profilePic"
+        src="/uploads/users/{{ app.user.picture }}" 
+        alt="Photo de profil">
     <div class="mb-5"> 
 
         {# Formulaire d'affichage et de modification des données utilisateur #}
-        <form action="" class="">
-            <fieldset>
-                <legend>
-                    <i class="bi bi-card-text"></i>
-                    Mes informations
-                </legend>
+        <fieldset>
+            <legend>
+                <i class="bi bi-card-text"></i>
+                Mes informations
+            </legend>
 
-                <label for="">Votre nom:</label>
-                <input type="text" value={{ user.fullname }}>
-
-                <label for="">Nom d'utilisateur:</label>
-                <input type="text" value={{ user.username }}>
-
-                <label for="">Email:</label>
-                <input type="mail" value={{ user.email }}>
-
-                <label for="">Mot de passe:</label>
-                <input type="password" value={{ user.password }} disabled>
-
-                <button type="submit" class="btn btn-info rounded">Modifier</button>
-            </fieldset>
-        </form>
+            {{ include('user/components/_form_modif_user.html.twig', { form: form }, with_context = false) }}
+        </fieldset>
     </div>
 
 

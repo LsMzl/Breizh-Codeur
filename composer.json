@@ -6,6 +6,7 @@
     "require": {
         "php": ">=8.2",
         "ext-ctype": "*",
+        "ext-gd": "*",
         "ext-iconv": "*",
         "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2.12",
@@ -48,6 +49,7 @@
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/markdown-extra": "^3.8",
         "twig/twig": "^2.12|^3.0"
+
     },
     "config": {
         "allow-plugins": {
