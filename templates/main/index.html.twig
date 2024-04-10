@@ -29,22 +29,23 @@
     <hr>
     <section class="mb-5">
         <h4>Rencontrez nos derniers membres</h4>
-        <ul>
             {% for user in users %}
-                <li>{{ user.username }}</li>
+            <div class="d-flex">
+                <img src="/uploads/users/{{ user.picture }}" alt="" class="mini_user_pic mr-3">
+                <p>{{ user.username }}</p>
+            </div>
             {% endfor %}
-        </ul>
     </section>
 
     <section class="mb-5">
-    <h4>Derniers articles en ligne</h4>
-        {% for post in posts %}
-            <a href="{{path('show', {id: post.id})}}"><li>{{ post.title }}</li></a>
-            <div>
-                <img src="{{ asset('assets/img/profile-picture.jpeg') }}" alt="" class="mini_user_pic">
-                <cite>Par {{ post.author.username}}</cite>
-            </div>
-        {% endfor %}
+        <h4>Derniers articles en ligne</h4>
+            {% for post in posts %}
+                <a href="{{path('show', {id: post.id})}}">{{ post.title }}</a>
+                <div>
+                    <img src="/uploads/users/{{ post.author.picture }}" alt="" class="mini_user_pic">
+                    <cite>Par {{ post.author.username}}</cite>
+                </div>
+            {% endfor %}
     </section>
 
 

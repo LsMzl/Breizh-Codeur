@@ -65,7 +65,7 @@ class MainController extends AbstractController
 
 
 
-	#[Route('/user/{id}', name: 'user_profile',  methods: ['GET', 'POST'], requirements:['id' => Requirement::DIGITS] )]
+	#[Route('/user/{username}', name: 'user_profile',  methods: ['GET', 'POST'], requirements:['id' => Requirement::DIGITS] )]
 	/**
 	 * Permet d'afficher un post selon son id
 	 */

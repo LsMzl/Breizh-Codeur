@@ -6,7 +6,8 @@
     <i class="bi bi-floppy" aria-hidden="true"></i>
     Valider
   </button>
-  <a href="{{ path('user_profile', {id: app.user.id }) }}" class="btn btn-danger rounded">
+
+  <a href="{{ path('user_profile', {username: app.user.username }) }}" class="btn btn-danger rounded">
     <i class="bi bi-columns-reverse" aria-hidden="true"></i>
     Annuler
   </a>
